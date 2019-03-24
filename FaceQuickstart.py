@@ -1,6 +1,4 @@
 import cognitive_face as CF
-#import json
-
 
 KEY = 'c326783a810a441794afdc421326aa37'  # Replace with a valid subscription key (keeping the quotes in place).
 CF.Key.set(KEY)

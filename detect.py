@@ -13,7 +13,7 @@ params = urllib.parse.urlencode({
     # Request parameters
     'returnFaceId': 'true',
     'returnFaceLandmarks': 'false',
-    'returnFaceAttributes': '',
+    'returnFaceAttributes': 'gender',
 })
 
 body = "{ 'url': 'https://specials-images.forbesimg.com/imageserve/558c0172e4b0425fd034f8ba/440x0.jpg?fit=scale&background=000000' }"
@@ -30,7 +30,18 @@ for items in bodies:
         response = conn.getresponse()
         data = response.read()
         print(data)
-        conn.close()
+
+        new_data = str(data)
+        final_data = new_data[2:len(new_data)-1]
+        #print(final_data)
+        final_data1 = final_data[1:len(final_data)-1]
+        print(final_data1)
+        j = json.loads(final_data1)
+        faceID = j["faceId"]
+        print(faceID)
+        Gender = j["faceAttributes"]["gender"]
+        print(Gender)
+        #conn.close()
 
     except Exception as e:
         print("[Errno {0}] {1}".format(e.errno, e.strerror))

@@ -2,7 +2,6 @@
 import http.client, urllib.request, urllib.parse, urllib.error, base64
 import json
 from FaceQuickstart import detect
-import time
 
 conn = http.client.HTTPSConnection('eastus.api.cognitive.microsoft.com')
 
@@ -17,7 +16,9 @@ headers = {
     # "returnFaceLandmarks": 'false',
     # "returnFaceAttributes": 'age',
 #})
+
 def verify(Student,Unknown_Student):
+    """ takes in two URLS to images compares to see if they are the same person """
 
     params=""
 
@@ -32,10 +33,11 @@ def verify(Student,Unknown_Student):
     data = response.read()
     new_data = str(data)
     final_data = new_data[2:len(new_data)-1]
+    print(final_data)
 
     
     j = json.loads(final_data)
-    isIdentical = j["isIdentical"]
+    isIdentical = bool(j["isIdentical"])
     confidence = j["confidence"]
 
     if isIdentical:
@@ -44,7 +46,6 @@ def verify(Student,Unknown_Student):
         print("Match not found")
 
     print("Confidence level: "+ str(confidence))
-
 
     conn.close()
 

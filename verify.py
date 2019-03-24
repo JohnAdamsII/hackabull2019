@@ -12,38 +12,44 @@ headers = {
     'Ocp-Apim-Subscription-Key': 'c326783a810a441794afdc421326aa37',
 }
 
-params = urllib.parse.urlencode({
+#params = urllib.parse.urlencode({
     # "returnFaceId": 'true',
     # "returnFaceLandmarks": 'false',
     # "returnFaceAttributes": 'age',
-})
+#})
+def verify(Student,Unknown_Student):
 
-faceId1 = detect('https://specials-images.forbesimg.com/imageserve/558c0172e4b0425fd034f8ba/440x0.jpg?fit=scale&background=000000')
-faceId2 = detect('http://pretty-hairstyles.com/wp-content/uploads/2016/02/Leonardo-di-Caprio-celebrity-hairstyles-2004.jpg')
-print(faceId1)
-print(faceId2)
-body = "{ 'faceId1': '%s', 'faceId2': '%s' }" %(faceId1, faceId2)
-print(body)
-#body = "{ 'faceId1': '19e78ae6-bf7b-4ba8-9aad-f3377f39384f', 'faceId2': '5d4dc282-58b7-4aeb-9edb-14ac56f6f150' }"
+    params=""
 
-conn.request("POST", "/face/v1.0/verify%s" % params, body, headers)
-response = conn.getresponse()
-data = response.read()
+    Student = detect('https://specials-images.forbesimg.com/imageserve/558c0172e4b0425fd034f8ba/440x0.jpg?fit=scale&background=000000')
+    Unknown_Student = detect('http://pretty-hairstyles.com/wp-content/uploads/2016/02/Leonardo-di-Caprio-celebrity-hairstyles-2004.jpg')
 
-new_data = str(data)
-final_data = new_data[2:len(new_data)-1]
+    body = "{ 'faceId1': '%s', 'faceId2': '%s' }" %(Student, Unknown_Student)
+   
+    conn.request("POST", "/face/v1.0/verify%s" % params, body, headers)
+    response = conn.getresponse()
+    
+    data = response.read()
+    new_data = str(data)
+    final_data = new_data[2:len(new_data)-1]
 
-print(final_data)
+    
+    j = json.loads(final_data)
+    isIdentical = j["isIdentical"]
+    confidence = j["confidence"]
 
-j = json.loads(final_data)
-isIdentical = j["isIdentical"]
-confidence = j["confidence"]
+    if isIdentical:
+        print("It's a match!")
+    else:
+        print("Match not found")
 
-print(isIdentical)
-print(confidence)
+    print("Confidence level: "+ str(confidence))
 
 
-conn.close()
+    conn.close()
+
+
+verify('https://specials-images.forbesimg.com/imageserve/558c0172e4b0425fd034f8ba/440x0.jpg?fit=scale&background=000000','http://pretty-hairstyles.com/wp-content/uploads/2016/02/Leonardo-di-Caprio-celebrity-hairstyles-2004.jpg')
 #except Exception as e:
     #print("[Errno {0}] {1}".format(e.errno, e.strerror))
 

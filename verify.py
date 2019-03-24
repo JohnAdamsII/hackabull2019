@@ -1,7 +1,7 @@
 ########### Python 3.2 #############
 import http.client, urllib.request, urllib.parse, urllib.error, base64
 import json
-from FaceQuickstart import detect
+from detect import getFaceIdandGender
 
 conn = http.client.HTTPSConnection('eastus.api.cognitive.microsoft.com')
 
@@ -22,35 +22,32 @@ def verify(Student,Unknown_Student):
 
     params=""
 
-    Student = detect('https://specials-images.forbesimg.com/imageserve/558c0172e4b0425fd034f8ba/440x0.jpg?fit=scale&background=000000')
-    Unknown_Student = detect('http://pretty-hairstyles.com/wp-content/uploads/2016/02/Leonardo-di-Caprio-celebrity-hairstyles-2004.jpg')
+    Student = getFaceIdandGender('https://specials-images.forbesimg.com/imageserve/558c0172e4b0425fd034f8ba/440x0.jpg?fit=scale&background=000000')
+    Unknown_Student = getFaceIdandGender('https://d.ibtimes.co.uk/en/full/319654/leonardo-dicaprio.jpg')
 
-    body = "{ 'faceId1': '%s', 'faceId2': '%s' }" %(Student, Unknown_Student)
+    body = "{ 'faceId1': '%s', 'faceId2': '%s' }" %(Student[0], Unknown_Student[0])
    
     conn.request("POST", "/face/v1.0/verify%s" % params, body, headers)
     response = conn.getresponse()
     
-    data = response.read()
-    new_data = str(data)
-    final_data = new_data[2:len(new_data)-1]
-    print(final_data)
+    data = str(response.read())
+    clean_data = data[2:len(data)-1]
 
     
-    j = json.loads(final_data)
+    j = json.loads(clean_data)
     isIdentical = bool(j["isIdentical"])
-    confidence = j["confidence"]
+    confidence = round(j["confidence"]*100)
+  
 
-    if isIdentical:
-        print("It's a match!")
-    else:
-        print("Match not found")
-
-    print("Confidence level: "+ str(confidence))
+    print("It's a match!") if isIdentical else print("Match not found")
+    print("I am " + str(confidence)+"% sure of this decision.")
 
     conn.close()
+    return(isIdentical,confidence)
 
-
-verify('https://specials-images.forbesimg.com/imageserve/558c0172e4b0425fd034f8ba/440x0.jpg?fit=scale&background=000000','http://pretty-hairstyles.com/wp-content/uploads/2016/02/Leonardo-di-Caprio-celebrity-hairstyles-2004.jpg')
+    
+if __name__ == '__main__':
+    verify('https://specials-images.forbesimg.com/imageserve/558c0172e4b0425fd034f8ba/440x0.jpg?fit=scale&background=000000','http://pretty-hairstyles.com/wp-content/uploads/2016/02/Leonardo-di-Caprio-celebrity-hairstyles-2004.jpg')
 #except Exception as e:
     #print("[Errno {0}] {1}".format(e.errno, e.strerror))
 

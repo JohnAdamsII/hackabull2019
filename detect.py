@@ -35,8 +35,8 @@ def getFaceIdandGender(Image_URL):
 
     return (faceID,Gender)
 
-
-student = getFaceIdandGender('http://pretty-hairstyles.com/wp-content/uploads/2016/02/Leonardo-di-Caprio-celebrity-hairstyles-2004.jpg')
-print(student)
+if __name__ == '__main__':
+    student = getFaceIdandGender('http://pretty-hairstyles.com/wp-content/uploads/2016/02/Leonardo-di-Caprio-celebrity-hairstyles-2004.jpg')
+    print(student)
 ####################################
 

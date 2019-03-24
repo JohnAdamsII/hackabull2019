@@ -46,10 +46,3 @@ def verify(Student,Unknown_Student):
     
 if __name__ == '__main__':
     pass
-    #verify('https://specials-images.forbesimg.com/imageserve/558c0172e4b0425fd034f8ba/440x0.jpg?fit=scale&background=000000','http://pretty-hairstyles.com/wp-content/uploads/2016/02/Leonardo-di-Caprio-celebrity-hairstyles-2004.jpg')
-#except Exception as e:
-    #print("[Errno {0}] {1}".format(e.errno, e.strerror))
-
-####################################
-
-# {"faceIds": "'96e5e68a-9b60-4b02-8ed6-b796e45cd21d', 'db64a557-01f1-4d0c-8840-94baaa3d06b0'"}

@@ -1,10 +1,10 @@
 from detect import getFaceIdandGender
 from verify import verify
 import time
-
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 import datetime
+
 # use creds to create a client to interact with the Google Drive API
 scope = ['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive']
 credentials = ServiceAccountCredentials.from_json_keyfile_name('mlh hackAbull AttendanceSheet-e713af6542e0.json', scope)

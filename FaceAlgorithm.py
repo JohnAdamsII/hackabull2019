@@ -22,7 +22,7 @@ def getFaceId(img_url):
 
 
 ########### Verify #############
-def getIdentical(input1, input2):
+def getIdentical(unknown, known):
     headers = {
         # Request headers
         'Content-Type': 'application/json',
@@ -32,8 +32,8 @@ def getIdentical(input1, input2):
     params = urllib.parse.urlencode({
     })
 
-    faceId1 = getFaceId( input1 )
-    faceId2 = getFaceId( input2 )
+    faceId1 = getFaceId( unknown )
+    faceId2 = getFaceId( known )
     body = "{ 'faceId1': '%s', 'faceId2': '%s' }" %(faceId1, faceId2)
     #body = "{ 'faceId1': '96e5e68a-9b60-4b02-8ed6-b796e45cd21d', 'faceId2': '6a436021-2acc-4166-bb6f-09cc1058e6c9' }"
     #body = str({"faceId": "96e5e68a-9b60-4b02-8ed6-b796e45cd21d", "largeFaceListId": "sample_list", "maxNumOf CandidatesReturned": 10, "mode": "matchPerson"})
@@ -52,13 +52,13 @@ def getIdentical(input1, input2):
 with open('links.txt') as f:
     lines = f.read().splitlines()
 
-print(lines)
 if ( len(lines) % 2 == 1 ):
     print("Odd number of URLs")
     exit()
 
 
-for i in range( len(lines) ):
-    url1 = lines[i]
-    getIdentical(lines[i], lines[i])
-    print (x)
+for i in range( 0, len(lines), 2 ):
+    getIdentical(lines[i], lines[i + 1])
+
+
+

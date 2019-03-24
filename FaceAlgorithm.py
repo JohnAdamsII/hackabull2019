@@ -4,6 +4,7 @@ import requests
 from io import BytesIO
 from PIL import Image, ImageDraw
 import http.client, urllib.request, urllib.parse, urllib.error, base64
+import json
 
 KEY = '3f5f46dbba524e8c9ad99d3a5a63e8c7'  # Replace with a valid subscription key (keeping the quotes in place).
 CF.Key.set(KEY)

@@ -22,16 +22,17 @@ def verify(Student,Unknown_Student):
 
     params=""
 
-    Student = getFaceIdandGender('https://specials-images.forbesimg.com/imageserve/558c0172e4b0425fd034f8ba/440x0.jpg?fit=scale&background=000000')
-    Unknown_Student = getFaceIdandGender('https://d.ibtimes.co.uk/en/full/319654/leonardo-dicaprio.jpg')
+    # Student = getFaceIdandGender(Student)
+    # Unknown_Student = getFaceIdandGender(Unknown_Student)
 
-    body = "{ 'faceId1': '%s', 'faceId2': '%s' }" %(Student[0], Unknown_Student[0])
+    body = "{ 'faceId1': '%s', 'faceId2': '%s' }" %(Student.faceId, Unknown_Student.faceId)
    
     conn.request("POST", "/face/v1.0/verify%s" % params, body, headers)
     response = conn.getresponse()
     
     data = str(response.read())
     clean_data = data[2:len(data)-1]
+    #print(clean_data)
 
     
     j = json.loads(clean_data)
@@ -47,7 +48,8 @@ def verify(Student,Unknown_Student):
 
     
 if __name__ == '__main__':
-    verify('https://specials-images.forbesimg.com/imageserve/558c0172e4b0425fd034f8ba/440x0.jpg?fit=scale&background=000000','http://pretty-hairstyles.com/wp-content/uploads/2016/02/Leonardo-di-Caprio-celebrity-hairstyles-2004.jpg')
+    pass
+    #verify('https://specials-images.forbesimg.com/imageserve/558c0172e4b0425fd034f8ba/440x0.jpg?fit=scale&background=000000','http://pretty-hairstyles.com/wp-content/uploads/2016/02/Leonardo-di-Caprio-celebrity-hairstyles-2004.jpg')
 #except Exception as e:
     #print("[Errno {0}] {1}".format(e.errno, e.strerror))
 

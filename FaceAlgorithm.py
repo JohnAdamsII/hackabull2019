@@ -56,7 +56,6 @@ if ( len(lines) % 2 == 1 ):
     print("Odd number of URLs")
     exit()
 
-
 for i in range( 0, len(lines), 2 ):
     getIdentical(lines[i], lines[i + 1])
 

@@ -88,7 +88,7 @@ def getIdentical(unknown, known):
             # print("Yes")
             return True
         else:
-            print("Nope")
+            # print("Nope")
             return False
     except Exception as e:
         print("[Errno {0}] {1}".format(e.errno, e.strerror))
@@ -101,7 +101,7 @@ class StudentInfo:
         self.URL = URL
         # commented out to not hit the limit on requests
         self.faceId, self.gender = getFaceId(URL)
-        self.absent = True
+        self.present = False
 
 class UnknownInfo:
     def __init__(self, URL):
@@ -132,10 +132,10 @@ for unknownStudent in UnknownStudents:
     for student in Students:
         if unknownStudent.gender != student.gender:
             continue
-        if student.absent == False:
+        if student.present == True:
             continue
         if getIdentical(unknownStudent, student) == True:
-            student.absent = False
+            student.present = True
             # print("%s is here" %(student.name) )
             break;
 
@@ -143,7 +143,7 @@ for unknownStudent in UnknownStudents:
 
 
 for student in Students:
-    print(student.name, student.absent)
+    print(student.name, student.present)
     # print(student.URL)
 
 # if ( len(lines) % 2 == 1 ):

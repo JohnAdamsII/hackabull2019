@@ -41,7 +41,7 @@ def verify(Student,Unknown_Student):
   
 
     print("It's a match!") if isIdentical else print("Match not found")
-    print("I am " + str(confidence)+"% sure of this decision.")
+    print("It is a " + str(confidence)+"% match.")
 
     conn.close()
     return(isIdentical,confidence)

@@ -80,6 +80,8 @@ def getIdentical(unknown, known):
         clean_data = data[2:len(data)-1]
         j = json.loads(clean_data)
         identical = bool(j["isIdentical"])
+        confidence = j["confidence"]
+        print(confidence)
         # conn.close()
 
         if identical:

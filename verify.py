@@ -22,9 +22,6 @@ def verify(Student,Unknown_Student):
 
     params=""
 
-    # Student = getFaceIdandGender(Student)
-    # Unknown_Student = getFaceIdandGender(Unknown_Student)
-
     body = "{ 'faceId1': '%s', 'faceId2': '%s' }" %(Student.faceId, Unknown_Student.faceId)
    
     conn.request("POST", "/face/v1.0/verify%s" % params, body, headers)
@@ -40,7 +37,7 @@ def verify(Student,Unknown_Student):
     confidence = round(j["confidence"]*100)
   
 
-    print("It's a match!") if isIdentical else print("Match not found")
+    print(Student.name+" has been Identified") if isIdentical else print("No Match found for "+Student.name)
     print("It is a " + str(confidence)+"% match.")
 
     conn.close()

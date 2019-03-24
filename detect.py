@@ -16,36 +16,27 @@ params = urllib.parse.urlencode({
     'returnFaceAttributes': 'gender',
 })
 
-body = "{ 'url': 'https://specials-images.forbesimg.com/imageserve/558c0172e4b0425fd034f8ba/440x0.jpg?fit=scale&background=000000' }"
-body1 = "{ 'url': 'http://pretty-hairstyles.com/wp-content/uploads/2016/02/Leonardo-di-Caprio-celebrity-hairstyles-2004.jpg' }"
-bodies = []
-bodies.append(body)
-bodies.append(body1)
+def getFaceIdandGender(Image_URL):
+
+    body = "{ 'url': '%s' }" %(Image_URL)
+
+    conn = http.client.HTTPSConnection('eastus.api.cognitive.microsoft.com')
+    conn.request("POST", "/face/v1.0/detect?%s" % params, body, headers)
+    response = conn.getresponse()
+
+    data = str(response.read())
+    clean_data = data[3:len(data)-2]
+
+    j = json.loads(clean_data)
+    faceID = j["faceId"]
+    Gender = j["faceAttributes"]["gender"]
+  
+    conn.close()
+
+    return (faceID,Gender)
 
 
-for items in bodies:
-    try:
-        conn = http.client.HTTPSConnection('eastus.api.cognitive.microsoft.com')
-        conn.request("POST", "/face/v1.0/detect?%s" % params, items, headers)
-        response = conn.getresponse()
-        data = response.read()
-        print(data)
-
-        new_data = str(data)
-        final_data = new_data[2:len(new_data)-1]
-        #print(final_data)
-        final_data1 = final_data[1:len(final_data)-1]
-        print(final_data1)
-        j = json.loads(final_data1)
-        faceID = j["faceId"]
-        print(faceID)
-        Gender = j["faceAttributes"]["gender"]
-        print(Gender)
-        #conn.close()
-
-    except Exception as e:
-        print("[Errno {0}] {1}".format(e.errno, e.strerror))
-
-
+student = getFaceIdandGender('http://pretty-hairstyles.com/wp-content/uploads/2016/02/Leonardo-di-Caprio-celebrity-hairstyles-2004.jpg')
+print(student)
 ####################################
 

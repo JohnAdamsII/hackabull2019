@@ -12,11 +12,7 @@ BASE_URL = 'https://eastus.api.cognitive.microsoft.com/face/v1.0/'  # Replace wi
 CF.BaseUrl.set(BASE_URL)
 
 def getFaceId(img_url):
-
     # You can use this example JPG or replace the URL below with your own URL to a JPEG image.
-    #img_url = 'https://raw.githubusercontent.com/Microsoft/Cognitive-Face-Windows/master/Data/detection1.jpg'
-    #img_url = 'https://www.billboard.com/files/media/Danielle-Bregoli-aug-2017-billboard-1548.jpg'
-    # img_url = input()
     faces = CF.face.detect(img_url)
     return(faces[0]['faceId'])
 

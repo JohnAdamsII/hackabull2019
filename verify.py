@@ -25,6 +25,7 @@ def verify(Student,Unknown_Student):
 
     params=""
 
+    print("Comparing:\n1: %s\n2: %s" % (Student.URL, Unknown_Student.URL))
     body = "{ 'faceId1': '%s', 'faceId2': '%s' }" %(Student.faceId, Unknown_Student.faceId)
    
     conn.request("POST", "/face/v1.0/verify%s" % params, body, headers)
@@ -32,17 +33,16 @@ def verify(Student,Unknown_Student):
     
     data = str(response.read())
     clean_data = data[2:len(data)-1]
-    #print(clean_data)
-
     
     j = json.loads(clean_data)
     # print(j)
     isIdentical = bool(j["isIdentical"])
     confidence = round(j["confidence"]*100)
   
-
-    print(Student.name+" has been Identified") if isIdentical else print("No Match found for "+Student.name)
     print("It is a " + str(confidence)+"% match.")
+    print(Student.name+" has been Identified") if isIdentical else print("No Match found for "+Student.name)
+   
+    print("*********************************************************************\n")
 
     conn.close()
     return(isIdentical,confidence)

@@ -3,12 +3,15 @@ import http.client, urllib.request, urllib.parse, urllib.error, base64
 import json
 from detect import getFaceIdandGender
 
-conn = http.client.HTTPSConnection('eastus.api.cognitive.microsoft.com')
+subscription_key = '5f28870ff1f34db39ace7176e72f3f8e'
+assert subscription_key
+
+conn = http.client.HTTPSConnection('westcentralus.api.cognitive.microsoft.com')
 
 headers = {
     # Request headers
-    'Content-Type': 'application/json',
-    'Ocp-Apim-Subscription-Key': 'c326783a810a441794afdc421326aa37',
+    'Content-Type': 'application/json', 
+    'Ocp-Apim-Subscription-Key': subscription_key
 }
 
 #params = urllib.parse.urlencode({
@@ -33,6 +36,7 @@ def verify(Student,Unknown_Student):
 
     
     j = json.loads(clean_data)
+    # print(j)
     isIdentical = bool(j["isIdentical"])
     confidence = round(j["confidence"]*100)
   

@@ -35,7 +35,6 @@ def verify(Student,Unknown_Student):
     clean_data = data[2:len(data)-1]
     
     j = json.loads(clean_data)
-    # print(j)
     isIdentical = bool(j["isIdentical"])
     confidence = round(j["confidence"]*100)
   

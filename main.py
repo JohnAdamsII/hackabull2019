@@ -19,32 +19,41 @@ class UnknownInfo:
 
 
 def main():
-    Students = []
-    UnknownStudents = []
+    mila_URL = "https://www.newdvdreleasedates.com/images/profiles/mila-kunis-01.jpg"
+    leo_URL = "https://specials-images.forbesimg.com/imageserve/558c0172e4b0425fd034f8ba/440x0.jpg?fit=scale&background=000000"
 
-    with open("studentDatabase.txt", "r") as readFile:
-        for line in readFile:
-                currentLine = line.strip().split(",")
-                Students.append( StudentInfo(currentLine[0].strip(), currentLine[1].strip()) )
+    # mila = getFaceIdandGender(mila_URL)
+    # leo = getFaceIdandGender(leo_URL)
+    leo = StudentInfo("leo",leo_URL)
+    mila = StudentInfo("mila", mila_URL)
 
-    with open("snapshots.txt", "r") as readFile:
-        for line in readFile:
-            currentLine = line.strip().split(",")
-            UnknownStudents.append( UnknownInfo(currentLine[1].strip()) )
+    compare = verify(mila,leo)
+    # Students = []
+    # UnknownStudents = []
 
+    # with open("studentDatabase.txt", "r") as readFile:
+    #     for line in readFile:
+    #             currentLine = line.strip().split(",")
+    #             Students.append( StudentInfo(currentLine[0].strip(), currentLine[1].strip()) )
 
-    print("Please wait Microsoft's free tier only allows 20 API requests per minute...\n")
-    time.sleep(60)
+    # with open("snapshots.txt", "r") as readFile:
+    #     for line in readFile:
+    #         currentLine = line.strip().split(",")
+    #         UnknownStudents.append( UnknownInfo(currentLine[1].strip()) )
 
-    for Unknown_Students in UnknownStudents:
-        for Known_Students in Students:
-            if Unknown_Students.gender != Known_Students.gender:
-                continue
-            if not(Known_Students.absent):
-                continue
-            if verify(Known_Students,Unknown_Students)[0]:
-                Known_Students.absent = False 
-                break
+   
+    # print("Please wait Microsoft's free tier only allows 20 API requests per minute...\n")
+    # time.sleep(60)
+
+    # for Unknown_Students in UnknownStudents:
+    #     for Known_Students in Students:
+    #         if Unknown_Students.gender != Known_Students.gender:
+    #             continue
+    #         if not(Known_Students.absent):
+    #             continue
+    #         if verify(Known_Students,Unknown_Students)[0]:
+    #             Known_Students.absent = False 
+    #             break
 
 if __name__ == "__main__":
     main()

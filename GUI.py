@@ -4,7 +4,7 @@ from PIL import Image, ImageTk
 from io import BytesIO
 import time
 
-
+from main import *
 
 def URL2img(URL):
     response = urllib.request.urlopen(URL)
@@ -19,6 +19,7 @@ def makeImgLabel(image):
 
     label = tkinter.Label(window,image=image, borderwidth=2, relief='solid')
     label.image = image
+
     return label
 
 
@@ -36,5 +37,16 @@ leo_URL = "https://specials-images.forbesimg.com/imageserve/558c0172e4b0425fd034
 leo = URL2img(leo_URL)
 label = makeImgLabel(leo)
 label.place(x=625,y=200)
+
+leo = StudentInfo("leo",leo_URL)
+mila = StudentInfo("mila", mila_URL)
+result = verify(mila,leo)
+
+if result[0]:
+    label = tkinter.Label(window,text='MATCH!', borderwidth=2, relief='solid')
+    label.place(x=550,y=50)
+else:
+    label = tkinter.Label(window,text='NO MATCH!', borderwidth=2, relief='solid')
+    label.place(x=600,y=50)
 
 window.mainloop()
